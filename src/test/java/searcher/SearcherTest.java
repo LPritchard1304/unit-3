@@ -1,6 +1,7 @@
 package searcher;
 
 import arrayGenerator.CleverRandomListingGenerator;
+import arrayGenerator.RandomArrayGenerator;
 import main.java.arrayGenerator.ArrayGenerator;
 import org.junit.jupiter.api.Test;
 import tools.Print;
@@ -25,8 +26,8 @@ abstract class SearcherTest {
     abstract protected Searcher createSearcher(int[] array, int index) throws IndexingError;
 
     /**
-     * Test that the searcher finds the correct value.  Use a simple searcher to find the correct value,
-     * and compare this to the value returned
+     * Test that the searcher finds the correct value.  These tests use listings.  Since listings contain the values
+     * 1, 2, ..., n-1 (possibly in a random order) the kth largest entry will always be n-k.
      * @param arraySize the size of the random listing to be generated (the "n" value)
      * @param index the index (the "k" value)
      * @throws IndexingError if k is out of bounds for n
@@ -35,6 +36,26 @@ abstract class SearcherTest {
         ArrayGenerator generator = new CleverRandomListingGenerator(arraySize);
         Searcher search = createSearcher(generator.getArray(), index);
         int expected = arraySize-index;
+        int found = search.findElement();
+        assertEquals(expected, found,"\n\tIncorrect " + Print.ordinal(index) + " largest value found by searcher in array " + Print.array(generator.getArray()) + " (array size " + arraySize + ")");
+    }
+
+    /**
+     * Test a searcher on a random array.  These tests will assume that simple searchers return the correct value.
+     * A simple searcher is used to retrieve this value, and this is compared to the value returned by the type of
+     * searcher being tested.
+     * @param arraySize the size of the random listing to be generated (the "n" value)
+     * @param minimum the minimum (random) value to be used in the array (inclusive)
+     * @param maximum the maximum (random) value to be used in the array (exclusive)
+     * @param index the index (the "k" value)
+     * @throws IndexingError if k is out of bounds for n
+     */
+    private void testRandom(int arraySize,int minimum,int maximum,int index) throws IndexingError {
+        ArrayGenerator generator = new RandomArrayGenerator(arraySize,minimum,maximum);
+        int[] array = generator.getArray();
+        Searcher search = createSearcher(array, index);
+        SimpleSearcher simpleSearch = new SimpleSearcher(array.clone(),index);
+        int expected = simpleSearch.findElement();
         int found = search.findElement();
         assertEquals(expected, found,"\n\tIncorrect " + Print.ordinal(index) + " largest value found by searcher in array " + Print.array(generator.getArray()) + " (array size " + arraySize + ")");
     }
@@ -88,4 +109,18 @@ abstract class SearcherTest {
         testSearcher(1000000,4);
     }
 
+    @Test
+    void testRandom1() throws IndexingError {
+        testRandom(10,0,20,3);
+    }
+
+    @Test
+    void testRandom2() throws IndexingError {
+        testRandom(100,-50,50,12);
+    }
+
+    @Test
+    void testRandom3() throws IndexingError {
+        testRandom(50,-200,-100,8);
+    }
 }

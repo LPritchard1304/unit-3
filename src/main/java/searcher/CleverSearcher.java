@@ -32,12 +32,7 @@ public class CleverSearcher extends Searcher {
      * @return kth largest element of array
      */
     public int findElement() throws IndexingError {
-        int[] array = getArray();
-        int k = getIndex();
-        if (k <= 0 || k > array.length) {
-            throw new IndexingError();
-        }
-        Arrays.sort(array); // sort the whole array
-        return array[array.length - k]; // desired element is kth from the end
-    } // end of obvious solution method
+        // Stub.  Implement clever method here.
+        return 0;
+    } // end of clever solution method
 }
