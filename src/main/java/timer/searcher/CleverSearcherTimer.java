@@ -3,35 +3,35 @@ package timer.searcher;
 import arrayGenerator.CleverRandomListingGenerator;
 import main.java.arrayGenerator.ArrayGenerator;
 import searcher.IndexingError;
-import searcher.SimpleSearcher;
+import searcher.CleverSearcher;
 import timer.timer.Timer;
 
 /**
- * A main.java.timer implementation for simple searchers that times the findElement method
+ * A main.java.timer implementation for clever searchers that times the findElement method
  *
  * @author Hugh Osborne
  * @version September 2020
  */
 
-public class SimpleSearcherTimer extends SimpleSearcher implements Timer {
+public class CleverSearcherTimer extends CleverSearcher implements Timer {
 
     // All timings will be done with an index of 5
     private final static int K = 5;
 
-    private SimpleSearcherTimer(int[] array) throws IndexingError {
+    private CleverSearcherTimer(int[] array) throws IndexingError {
         super(array, K);
     }
 
     /**
-     * We are timing SimpleSearchers.
+     * We are timing CleverSearchers.
      *
      * @param size the size of the task to be timed.
-     * @return a SimpleSearcher of the required size.
+     * @return a CleverSearcher of the required size.
      */
     @Override
     public Timer getTimer(int size) throws IndexingError {
         ArrayGenerator generator = new CleverRandomListingGenerator(size);
-        return new SimpleSearcherTimer(generator.getArray());
+        return new CleverSearcherTimer(generator.getArray());
     }
 
     /**
@@ -84,7 +84,7 @@ public class SimpleSearcherTimer extends SimpleSearcher implements Timer {
      * @throws IndexingError should not happen
      */
     public static void main(String[] args) throws IndexingError {
-        SimpleSearcherTimer timer = new SimpleSearcherTimer(null);
+        CleverSearcherTimer timer = new CleverSearcherTimer(null);
         timer.timingSequence();
     }
 }
