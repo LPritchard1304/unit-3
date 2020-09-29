@@ -84,7 +84,7 @@ public class SimpleSearcherTimer extends SimpleSearcher implements Timer {
      * @throws IndexingError should not happen
      */
     public static void main(String[] args) throws IndexingError {
-        SimpleSearcherTimer timer = new SimpleSearcherTimer(null);
+        SimpleSearcherTimer timer = new SimpleSearcherTimer(new int[K]);
         timer.timingSequence();
     }
 }

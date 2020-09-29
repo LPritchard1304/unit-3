@@ -84,7 +84,7 @@ public class CleverSearcherTimer extends CleverSearcher implements Timer {
      * @throws IndexingError should not happen
      */
     public static void main(String[] args) throws IndexingError {
-        CleverSearcherTimer timer = new CleverSearcherTimer(null);
+        CleverSearcherTimer timer = new CleverSearcherTimer(new int[K]);
         timer.timingSequence();
     }
 }
