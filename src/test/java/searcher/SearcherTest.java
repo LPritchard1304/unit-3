@@ -95,7 +95,7 @@ abstract class SearcherTest {
     }
 
     @Test
-    void test1003rdn10000() throws IndexingError {
+    void test1003rdIn10000() throws IndexingError {
         testSearcher(10000,1003);
     }
 
